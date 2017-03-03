@@ -1,15 +1,18 @@
 sudo: required
-
 language: c++
-
 services:
-  - docker
-
+- docker
 before_install:
-  - docker pull caio2k/mer-n950-kernel
-  - docker ps -a
-
+- docker pull caio2k/mer-n950-kernel
+- docker ps -a
 script:
-  - mkdir /tmp/output
-  - docker run --name test2 --rm -v `pwd`:/input -v /tmp/output:/output caio2k/mer-n950-kernel
-
+- mkdir /tmp/output
+- docker run --name test2 --rm -v `pwd`:/input -v /tmp/output:/output caio2k/mer-n950-kernel
+deploy:
+  provider: releases
+  api_key:
+    secure: MrHi/KbduU9iYw4fskM69yRpnDOv1mWAPItIkIFKUUVcX5BsFkImaLhw4bv5jJELNKHJ/g6VZFEnAHEagOwRk6mTHkmq2dtGWdMOzZrEyRqXpA8N9aXNWirD5Z3eCutcqTq+VGyfIDzspRgnheSZ9czYo9nELJeE4VdUuB0mFhUJTW7G5SODFsW3/ZrWDnscV8Jdqw3ZZXhi9CkciMpIwvWKUB48755zArqOaLtOMq1BkwFQ00EHx/nywtU4VVFlBjwrtJIwD/5sEjz+U34HBZ29a4WN98QA4cAekWSHBEFY8LqF03vF58lEH4Vbm9XLxW2hADM5Auk1/eE9CL1mV64XPrbphHbNE9/eCrMnQxVhVciQznWvXhMIE+PGnp8DY5k0T/l1aiP3UoAV3qFor06eA65Bzq7RgwmDDUyAHNO67AHrVVGKV6QQAwsCp1MKvfNrO5MIJvbuKMytIMnIczG7Seaj8Ax8pMVG6Tmu6py0GDpaUcgjDF5vsEJxtoMM3aTnHU8tSNwh9SVuz7w5nrHhv6ztkwZwuejYDnG891t1u+iBBcErnUJeXWSi6CDoTXEgZC/7ACP70efhcKZxgKMcgQ+D3SZhWFtQfNnuE55auNZ8Id1dtF8AsPfDXO0GosiC296/ckXzXPVQ4QTmuY7aWvniJpnLEz3FXd4eIV8=
+  file_glob: true
+  file: output/*.bz2
+  on:
+    repo: caio2k/kernel-n9
