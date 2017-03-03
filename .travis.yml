@@ -1,0 +1,15 @@
+sudo: required
+
+language: c++
+
+services:
+  - docker
+
+before_install:
+  - docker pull caio2k/mer-n950-kernel
+  - docker ps -a
+
+script:
+  - mkdir /tmp/output
+  - docker run --name test2 --rm -v `pwd`:/input -v /tmp/output:/output caio2k/mer-n950-kernel
+
